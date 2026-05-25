@@ -19,6 +19,10 @@ class WorkflowError(MacroTraceError):
     """Raised when workflow execution fails."""
 
 
+class ToolFailureError(WorkflowError):
+    """Raised when a simulated workflow tool fails to return a result."""
+
+
 class AdapterError(MacroTraceError):
     """Raised when trace adapter operations fail."""
 

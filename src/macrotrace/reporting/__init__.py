@@ -5,7 +5,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Literal, TypeAlias
 
-ReportFormat: TypeAlias = Literal["markdown", "html"]
+ReportFormat: TypeAlias = Literal["markdown", "html"]  # noqa: UP040
 
 
 def export_report(experiment: str, output_format: ReportFormat, output: Path | None) -> None:
