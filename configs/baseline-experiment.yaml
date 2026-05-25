@@ -1,0 +1,27 @@
+# Baseline Experiment — No defects
+# Use this to establish the baseline pattern distribution.
+
+experiment:
+  name: baseline_procurement_workflow_v1
+  workflow_name: research_procurement_review
+  workflow_version: "0.1.0"
+  scenario_dataset: procurement_v1
+  seed: 42
+  runs_per_scenario: 5
+  max_concurrency: 10
+
+models:
+  coordinator: gpt-4.1-mini
+  specialists: gpt-4.1-mini
+  judge: gpt-4.1-mini
+
+discovery:
+  include_runs: failed_or_reviewed_or_eval_failed
+  embedding_model: sentence-transformers/all-MiniLM-L6-v2
+  min_cluster_size: 6
+  random_seed: 42
+
+fault_injections: []
+  # No defects — establishes the natural pattern distribution.
+  # Expected: clean patterns from inherent ambiguity
+  # (unclear data usage, policy exceptions, etc.)

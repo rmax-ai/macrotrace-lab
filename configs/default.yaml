@@ -1,0 +1,24 @@
+# Default MacroTrace Lab Experiment Configuration
+# Copy and modify for your experiments.
+
+experiment:
+  name: baseline_procurement_workflow_v1
+  workflow_name: research_procurement_review
+  workflow_version: "0.1.0"
+  scenario_dataset: procurement_v1
+  seed: 42                    # Random seed for reproducibility
+  runs_per_scenario: 5        # Number of runs per scenario (for statistical stability)
+  max_concurrency: 10         # Max parallel workflow executions
+
+models:
+  coordinator: gpt-4.1-mini
+  specialists: gpt-4.1-mini
+  judge: gpt-4.1-mini          # Used only for optional LLM judge evals
+
+discovery:
+  include_runs: failed_or_reviewed_or_eval_failed  # Filter for pattern discovery
+  embedding_model: sentence-transformers/all-MiniLM-L6-v2
+  min_cluster_size: 6         # Minimum traces per cluster (HDBSCAN param)
+  random_seed: 42             # Seed for UMAP + HDBSCAN
+
+fault_injections: []           # List of defects to inject: see fault_injection.py

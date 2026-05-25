@@ -1,0 +1,37 @@
+# Intervention Experiment — Annual Cost Check Fix
+# Targeted defect: CoordinatorAgent routes directly to ProcurementAgent
+# when monthly_cost_eur < 50, even for confidential or vendor-unknown requests.
+#
+# Intervention: risk-based routing takes precedence over cost-based fast path.
+
+experiment:
+  name: intervention_annual_cost_check_v1
+  workflow_name: research_procurement_review
+  workflow_version: "0.1.1"
+  scenario_dataset: procurement_v1
+  baseline_experiment: baseline_procurement_workflow_v1
+  seed: 42
+  runs_per_scenario: 5
+  max_concurrency: 10
+
+models:
+  coordinator: gpt-4.1-mini
+  specialists: gpt-4.1-mini
+  judge: gpt-4.1-mini
+
+discovery:
+  include_runs: failed_or_reviewed_or_eval_failed
+  embedding_model: sentence-transformers/all-MiniLM-L6-v2
+  min_cluster_size: 6
+  random_seed: 42
+
+fault_injections: []
+  # No faults in the intervention — the fix is in the routing logic.
+  # The fix: risk-based routing (confidential + unknown vendor → SecurityAgent)
+  # takes precedence over cost fast-path.
+  #
+  # Success criteria:
+  # - Target pattern (automatic approval of confidential vendor requests)
+  #   impact_score reduced by ≥ 70%
+  # - No new severe automatic-approval patterns
+  # - Review false-positive rate increase ≤ 15%
