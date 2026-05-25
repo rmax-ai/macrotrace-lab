@@ -53,8 +53,7 @@ class EvalPipeline:
                     scenario=scenario,
                     events=events,
                     run_findings=[
-                        evaluator.evaluate(run, scenario, events)
-                        for evaluator in self._evaluators
+                        evaluator.evaluate(run, scenario, events) for evaluator in self._evaluators
                     ],
                 )
             )
