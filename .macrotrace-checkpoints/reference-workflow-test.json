@@ -1,0 +1,70 @@
+{
+  "completed_runs": [
+    "workflow-0cbcee7c1a2c-attempt-0",
+    "workflow-107bbf481341-attempt-1",
+    "workflow-141fa165e0df-attempt-1",
+    "workflow-d49c6f42383a-attempt-0"
+  ],
+  "runs": [
+    {
+      "cost_estimate_usd": 0.0,
+      "ended_at": "2026-05-25T21:39:23.377657Z",
+      "error_type": null,
+      "experiment_id": "experiment-d7272ed0b202",
+      "final_decision": "approved",
+      "final_output": "approved",
+      "human_review_requested": false,
+      "latency_ms": 2,
+      "run_id": "workflow-0cbcee7c1a2c-attempt-0",
+      "run_outcome": "approved",
+      "scenario_id": "batch-clean",
+      "started_at": "2026-05-25T21:39:23.374879Z",
+      "trace_id": "trace-workflow-0cbcee7c1a2c"
+    },
+    {
+      "cost_estimate_usd": 0.0,
+      "ended_at": "2026-05-25T21:39:23.378919Z",
+      "error_type": null,
+      "experiment_id": "experiment-d7272ed0b202",
+      "final_decision": "approved",
+      "final_output": "approved",
+      "human_review_requested": false,
+      "latency_ms": 3,
+      "run_id": "workflow-107bbf481341-attempt-1",
+      "run_outcome": "approved",
+      "scenario_id": "batch-clean",
+      "started_at": "2026-05-25T21:39:23.375395Z",
+      "trace_id": "trace-workflow-107bbf481341"
+    },
+    {
+      "cost_estimate_usd": 0.0,
+      "ended_at": "2026-05-25T21:39:23.381673Z",
+      "error_type": null,
+      "experiment_id": "experiment-d7272ed0b202",
+      "final_decision": "review_required",
+      "final_output": "review_required",
+      "human_review_requested": true,
+      "latency_ms": 2,
+      "run_id": "workflow-141fa165e0df-attempt-1",
+      "run_outcome": "review_required",
+      "scenario_id": "batch-review",
+      "started_at": "2026-05-25T21:39:23.379048Z",
+      "trace_id": "trace-workflow-141fa165e0df"
+    },
+    {
+      "cost_estimate_usd": 0.0,
+      "ended_at": "2026-05-25T21:39:23.380395Z",
+      "error_type": null,
+      "experiment_id": "experiment-d7272ed0b202",
+      "final_decision": "review_required",
+      "final_output": "review_required",
+      "human_review_requested": true,
+      "latency_ms": 2,
+      "run_id": "workflow-d49c6f42383a-attempt-0",
+      "run_outcome": "review_required",
+      "scenario_id": "batch-review",
+      "started_at": "2026-05-25T21:39:23.377806Z",
+      "trace_id": "trace-workflow-d49c6f42383a"
+    }
+  ]
+}
