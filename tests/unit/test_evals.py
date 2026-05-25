@@ -53,7 +53,7 @@ def test_outcome_correctness_eval_fails_when_outcomes_mismatch() -> None:
 
     assert finding.passed is False
     assert finding.finding_type is FindingType.INCORRECT_DECISION
-    assert "Expected workflow outcome 'approved'." == finding.expected_behavior
+    assert finding.expected_behavior == "Expected workflow outcome 'approved'."
 
 
 def test_required_agent_activation_eval_passes_when_agents_are_present() -> None:
