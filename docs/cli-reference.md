@@ -4,21 +4,21 @@
 
 | Flag | Description |
 |------|-------------|
-| `--verbose`, `-v` | Increase log verbosity (repeat for debug) |
-| `--config`, `-c` | Path to experiment YAML config |
+| `--verbose`, `-v` | Increase log verbosity |
+| `--config`, `-c` | Default path to experiment YAML config |
 | `--help`, `-h` | Show help message |
 
 ## Commands
 
 ### `macrotrace init`
 
-Initialize database and create directory structure.
+Initialize the database schema.
 
 ```bash
 macrotrace init
 ```
 
-Idempotent — safe to run multiple times.
+Idempotent and safe to run multiple times.
 
 ### `macrotrace scenarios generate`
 
@@ -32,10 +32,10 @@ macrotrace scenarios generate \
 
 | Option | Default | Description |
 |--------|---------|-------------|
-| `--config`, `-c` | `configs/default.yaml` | Experiment config |
+| `--config`, `-c` | inherited global default | Experiment config |
 | `--count` | `100` | Number of scenarios to generate |
-| `--seed` | `42` | Random seed |
-| `--output` | `data/scenarios/generated/` | Output directory |
+| `--seed` | experiment seed | Random seed override |
+| `--output`, `-o` | — | Output directory |
 
 ### `macrotrace runs execute`
 
@@ -49,10 +49,10 @@ macrotrace runs execute \
 
 | Option | Default | Description |
 |--------|---------|-------------|
-| `--experiment` | required | Experiment name or config path |
-| `--config`, `-c` | — | Override config file |
-| `--max-concurrency` | `10` | Max parallel executions |
-| `--adapter` | `jsonl` | Trace adapter: `jsonl` or `openai` |
+| `--experiment` | — | Experiment identifier |
+| `--config`, `-c` | inherited global default | Override config file |
+| `--max-concurrency` | — | Max parallel executions |
+| `--adapter` | — | Trace adapter name |
 | `--dry-run` | `false` | Validate without executing |
 
 ### `macrotrace traces import`
@@ -67,7 +67,7 @@ macrotrace traces import \
 
 | Option | Default | Description |
 |--------|---------|-------------|
-| `--adapter` | required | Import adapter: `jsonl` |
+| `--adapter` | required | Import adapter name |
 | `--path` | required | Path to trace file |
 
 ### `macrotrace traces validate`
@@ -89,7 +89,7 @@ macrotrace evals run --experiment baseline_procurement_workflow_v1
 | Option | Default | Description |
 |--------|---------|-------------|
 | `--experiment` | required | Experiment name |
-| `--config`, `-c` | — | Override config |
+| `--config`, `-c` | inherited global default | Override config |
 
 ### `macrotrace evals summary`
 
@@ -163,7 +163,7 @@ Launch the Streamlit dashboard.
 macrotrace ui
 ```
 
-Opens in the default browser at `http://localhost:8501`.
+Launches the Streamlit dashboard entrypoint when implemented.
 
 ### `macrotrace report export`
 
@@ -179,5 +179,5 @@ macrotrace report export \
 | Option | Default | Description |
 |--------|---------|-------------|
 | `--experiment` | required | Experiment name |
-| `--format` | `markdown` | Export format |
+| `--format` | `markdown` | Export format: `markdown` or `html` |
 | `--output`, `-o` | stdout | Output file path |
