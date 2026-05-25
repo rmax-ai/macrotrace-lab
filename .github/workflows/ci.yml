@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v3
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: uv sync --group dev
+      - name: Format check
+        run: uv run ruff format --check .
+      - name: Lint
+        run: uv run ruff check .
+      - name: Type check
+        run: uv run mypy src/macrotrace
+      - name: Test
+        run: uv run pytest -v --tb=short --cov=src/macrotrace --cov-fail-under=80
+      - name: Smoke test (offline)
+        run: |
+          uv run python -m macrotrace init
+          uv run python -m macrotrace scenarios generate --count 20 --seed 42
+          echo "Smoke test: scaffold OK"
