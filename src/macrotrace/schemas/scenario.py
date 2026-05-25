@@ -16,6 +16,7 @@ CaseType: TypeAlias = Literal[  # noqa: UP040
     "policy_exception",
     "runtime_tool_failure",
 ]
+GroundTruthValue: TypeAlias = bool | list[str]  # noqa: UP040
 
 
 class Scenario(BaseModel):
@@ -31,7 +32,7 @@ class Scenario(BaseModel):
         default=None,
         description="Expected workflow outcome for the scenario, when defined.",
     )
-    ground_truth: dict[str, bool] = Field(
+    ground_truth: dict[str, GroundTruthValue] = Field(
         description="Expected control decisions and review requirements for this scenario."
     )
     environmental_signals: dict[str, int | str | float | bool | None] = Field(
