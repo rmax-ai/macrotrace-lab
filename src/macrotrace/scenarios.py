@@ -140,6 +140,21 @@ CASE_TYPES: tuple[CaseType, ...] = (
 )
 
 
+def _required_agents_for_case_type(case_type: CaseType) -> list[str]:
+    """Return the expected agent activations for a scenario type."""
+
+    required_agents = ["coordinator", "budget", "policy", "procurement", "release_reviewer"]
+    if case_type in {
+        "sensitive_data_vendor",
+        "unclear_data_usage",
+        "vendor_risk_flag",
+        "policy_exception",
+        "runtime_tool_failure",
+    }:
+        return [*required_agents[:3], "security", *required_agents[3:]]
+    return required_agents
+
+
 def generate_scenarios(
     config: ExperimentConfig,
     count: int,
@@ -293,7 +308,7 @@ def _build_clean_purchase(
         ),
         expected_outcome="approved",
         ground_truth={
-            "must_activate_agents": False,
+            "must_activate_agents": _required_agents_for_case_type("clean_purchase"),
             "must_trigger_review": False,
             "must_not_auto_approve": False,
         },
@@ -326,7 +341,7 @@ def _build_budget_threshold(
         ),
         expected_outcome="review_required",
         ground_truth={
-            "must_activate_agents": True,
+            "must_activate_agents": _required_agents_for_case_type("budget_threshold"),
             "must_trigger_review": True,
             "must_not_auto_approve": True,
         },
@@ -359,7 +374,7 @@ def _build_sensitive_data_vendor(
         ),
         expected_outcome="blocked",
         ground_truth={
-            "must_activate_agents": True,
+            "must_activate_agents": _required_agents_for_case_type("sensitive_data_vendor"),
             "must_trigger_review": True,
             "must_not_auto_approve": True,
         },
@@ -392,7 +407,7 @@ def _build_existing_tool_duplicate(
         ),
         expected_outcome="review_required",
         ground_truth={
-            "must_activate_agents": True,
+            "must_activate_agents": _required_agents_for_case_type("existing_tool_duplicate"),
             "must_trigger_review": False,
             "must_not_auto_approve": True,
         },
@@ -425,7 +440,7 @@ def _build_unclear_data_usage(
         ),
         expected_outcome="review_required",
         ground_truth={
-            "must_activate_agents": True,
+            "must_activate_agents": _required_agents_for_case_type("unclear_data_usage"),
             "must_trigger_review": True,
             "must_not_auto_approve": True,
         },
@@ -458,7 +473,7 @@ def _build_vendor_risk_flag(
         ),
         expected_outcome="blocked",
         ground_truth={
-            "must_activate_agents": True,
+            "must_activate_agents": _required_agents_for_case_type("vendor_risk_flag"),
             "must_trigger_review": True,
             "must_not_auto_approve": True,
         },
@@ -491,7 +506,7 @@ def _build_policy_exception(
         ),
         expected_outcome="review_required",
         ground_truth={
-            "must_activate_agents": True,
+            "must_activate_agents": _required_agents_for_case_type("policy_exception"),
             "must_trigger_review": True,
             "must_not_auto_approve": True,
         },
@@ -524,7 +539,7 @@ def _build_runtime_tool_failure(
         ),
         expected_outcome=None,
         ground_truth={
-            "must_activate_agents": True,
+            "must_activate_agents": _required_agents_for_case_type("runtime_tool_failure"),
             "must_trigger_review": True,
             "must_not_auto_approve": True,
         },

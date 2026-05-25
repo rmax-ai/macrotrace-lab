@@ -29,3 +29,7 @@ class AdapterError(MacroTraceError):
 
 class DiscoveryError(MacroTraceError):
     """Raised when pattern discovery operations fail."""
+
+
+class EvalError(MacroTraceError):
+    """Raised when evaluation pipeline execution fails."""

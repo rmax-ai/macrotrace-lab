@@ -37,7 +37,7 @@ class ScenarioTable(SQLModel, table=True):  # type: ignore[misc,call-arg]
     case_type: str
     request_text: str
     expected_outcome: str | None = None
-    ground_truth: dict[str, bool] = SQLField(sa_column=_json_column())
+    ground_truth: dict[str, bool | list[str]] = SQLField(sa_column=_json_column())
     environmental_signals: dict[str, int | str | float | bool | None] = SQLField(
         sa_column=_json_column()
     )
