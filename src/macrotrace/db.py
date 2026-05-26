@@ -208,17 +208,19 @@ ENGINE = create_db_engine()
 
 
 @contextmanager
-def get_session(engine: Engine = ENGINE) -> Any:
+def get_session(engine: Engine | None = None) -> Any:
     """Yield a database session."""
 
-    with Session(engine) as session:
+    resolved_engine = ENGINE if engine is None else engine
+    with Session(resolved_engine) as session:
         yield session
 
 
-def init_db(engine: Engine = ENGINE) -> None:
+def init_db(engine: Engine | None = None) -> None:
     """Create all configured database tables."""
 
-    SQLModel.metadata.create_all(engine)
+    resolved_engine = ENGINE if engine is None else engine
+    SQLModel.metadata.create_all(resolved_engine)
 
 
 def create_scenario(session: Session, scenario: Scenario) -> Scenario:
@@ -236,6 +238,15 @@ def list_scenarios(session: Session) -> list[Scenario]:
 
     records = session.exec(select(ScenarioTable).order_by(ScenarioTable.scenario_id)).all()
     return [Scenario.model_validate(record.model_dump()) for record in records]
+
+
+def get_scenario(session: Session, scenario_id: str) -> Scenario:
+    """Fetch a persisted scenario by identifier."""
+
+    record = session.exec(
+        select(ScenarioTable).where(ScenarioTable.scenario_id == scenario_id)
+    ).one()
+    return Scenario.model_validate(record.model_dump())
 
 
 def create_experiment(session: Session, experiment: Experiment) -> Experiment:

@@ -2,11 +2,6 @@
 
 from __future__ import annotations
 
+from macrotrace.discovery.pipeline import PatternResult, discover_patterns
 
-def discover_patterns(experiment: str, include_all: bool) -> None:
-    """Discover behavior patterns for an experiment."""
-
-    raise NotImplementedError(
-        "Pattern discovery is not implemented yet for "
-        f"'{experiment}' with include_all={include_all}."
-    )
+__all__ = ["PatternResult", "discover_patterns"]
