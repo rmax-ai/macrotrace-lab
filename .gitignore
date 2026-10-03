@@ -37,3 +37,13 @@ coverage/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# gitignore-hygiene additions (2026-10-03)
+!.env.example
+!.env.sample
+!.env.template
+*.log
+*.swo
+.venv/
+venv/
+.pytest_cache/
